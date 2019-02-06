@@ -10,12 +10,16 @@ class GoogleAuth extends React.Component {
 
     }
 
-
     render() {
         return (
-            <div>{!this.props.auth ? <a href="/auth/google">Login With Google</a> :
+            <div className="item">{!this.props.auth ? <a href="/auth/google">
+                <div class="ui google plus button">
+                    <i class="google plus icon"></i>
+                    Google Plus
+                </div></a> :
                 <a href="/api/logout">Logout</a>}
             </div>
+
         )
     }
 }

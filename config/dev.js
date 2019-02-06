@@ -1,8 +1,10 @@
 module.exports = {
-    googleClientID: "460626842484-dofkbk71me9kjvj8cr01nkq2m0u2jn5a.apps.googleusercontent.com",
-    googleClientSecret: "nhYAABzKimIElYnZ-acxXQGF",
+    googleClientID: "826921710882-0g9gt8cpo1406dgp03v6p0m105rl362p.apps.googleusercontent.com",
+    googleClientSecret: "r2UHpRmYfKhlrFPBW0etw4yx",
     mongoURI: 'mongodb://joshuaaguilar20:J0shua11@ds113122.mlab.com:13122/email-dev',
     cookieKey: 'ireallylovecookiesandebbyandsnugs',
     stripePublicKey: "pk_test_nNrAdQIeNUfjQpHKtYzalw8A",
-    stripeSecretKey: 'sk_test_Ss9ahj3Yv9WPq1uQ8yt9oIcU'
+    stripeSecretKey: 'sk_test_Ss9ahj3Yv9WPq1uQ8yt9oIcU',
+    FACEBOOK_APP_ID: '324306344873501',
+    FACEBOOK_APP_SECRET: 'ab818ab611cc4d52efc8fdac99a6935b'
 };
