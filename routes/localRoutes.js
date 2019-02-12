@@ -9,14 +9,30 @@ const users = require('../models/User');
 module.exports = app => {
 
 
-    app.post('/auth/login',
-
+    app.post('/auth/login', (req, res, next) => {
         passport.authenticate('local', {
             successRedirect: '/worked',
-            failureRedirect: '/loggedIn',
-            failureFlash: true
-        })
-    );
+            failureRedirect: '/Failed',
+            failureFlash: true,
+            passReqToCallback: true
+
+        },
+            function (err, user, info) {
+                if (err) { return next(err); }
+                if (!user) { return res.redirect('/'); }
+
+                // req / res held in closure
+                req.logIn(user, function (err) {
+                    if (err) { return next(err); }
+                    return res.send(user);
+                });
+            })(req, res, next)
+
+    });
+
+
+
+
 
     app.post('/auth/register', async (req, res) => {
         var password = req.body.password;

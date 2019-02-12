@@ -36,11 +36,11 @@ const UserSchema = new Schema({
 // // 'bcrypt.compare' takes the plain text password and hashes it, then compares
 // // that hashed password to the one stored in the DB.  Remember that hashing is
 // // a one way process - the passwords are never compared in plain text form.
-// UserSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
-//   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-//     cb(err, isMatch);
-//   });
-// };
+UserSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    cb(err, isMatch);
+  });
+};
 
 
 
