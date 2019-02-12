@@ -1,14 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('./models/User')
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 var path = require('path');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
+var flash = require('connect-flash');
+require('./services/passport')
+require('./services/facebookAuth')
+require('./services/localStrategy')
 
-require('./models/User');
-require('./services/passport');
-require('./services/facebookAuth');
+
 
 
 mongoose.Promise = global.Promise;
@@ -17,7 +20,7 @@ mongoose.connect(keys.mongoURI);
 const app = express();
 
 const PORT = process.env.PORT || 5000;
-
+app.use(flash());
 app.use(bodyParser.json());
 app.use(
   cookieSession({
@@ -28,8 +31,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+
 require('./routes/authRoutes')(app);
 require('./routes/fbRoutes')(app);
+require('./routes/localRoutes')(app);
 
 
 if (process.env.NODE_ENV === 'production') {

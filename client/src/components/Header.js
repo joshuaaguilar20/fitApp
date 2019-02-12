@@ -8,16 +8,9 @@ const Header = () => {
       <Link to="/" className=" active item">
         Fit App
       </Link>
-      <div className="right menu">
-        <div class="item">
-          <div class="ui facebook button">
-            <i class="facebook icon"></i>
-            Facebook
-            </div>
-        </div>
-        <GoogleAuth />
-      </div>
+      <GoogleAuth />
     </div>
+
   );
 };
 

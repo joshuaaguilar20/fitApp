@@ -9,6 +9,7 @@ import Header from './Header';
 import history from '../history';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
+import Login from './Login'
 
 class App extends React.Component {
   componentDidMount() {
@@ -22,7 +23,7 @@ class App extends React.Component {
           <div>
             <Header />
             <Switch>
-              <Route path="/" exact component={StreamList} />
+              <Route path="/" exact component={Login} />
               <Route path="/streams/new" exact component={StreamCreate} />
               <Route path="/streams/edit/:id" exact component={StreamEdit} />
               <Route path="/streams/delete/:id" exact component={StreamDelete} />
