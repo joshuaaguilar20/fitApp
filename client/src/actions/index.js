@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import streams from '../apis/streams';
 import history from '../history';
 import {
@@ -53,15 +52,21 @@ export const createStream = formValues => async (dispatch, getState) => {
     history.push('/');
 };
 
+
 export const createUser = formValues => async dispatch => {
-  const response = await axios.post('/auth/register', { ...formValues });
-  dispatch({ type: CREATE_STREAM, payload: response.data });
-  if (response.data.email) {
-    history.push('/Dashboard');
+  try {
+    const response = await axios.post('/auth/register', { ...formValues });
+    dispatch({ type: CREATE_STREAM, payload: response.data });
+    if (response.data.email) {
+      history.push('/Dashboard');
+    }
+    else
+      history.push('/');
+
+  } catch (err) {
+    throw new Error
   }
-  else
-    history.push('/');
-};
+}
 
 
 
@@ -92,6 +97,8 @@ export const deleteStream = id => async dispatch => {
   dispatch({ type: DELETE_STREAM, payload: id });
   history.push('/');
 };
+
+
 
 
 
