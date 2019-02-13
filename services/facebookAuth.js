@@ -24,7 +24,8 @@ passport.use(
         {
             clientID: keys.FACEBOOK_APP_ID,
             clientSecret: keys.FACEBOOK_APP_SECRET,
-            callbackURL: '/auth/facebook/callback',
+            callbackURL: 'https://thawing-ridge-14441.herokuapp.com/auth/facebook/callback',
+            proxy: true,
             profileFields: ['id', 'name', 'gender', 'displayName', 'photos', 'profileUrl', 'email']
         },
 
