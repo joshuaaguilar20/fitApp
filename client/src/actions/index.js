@@ -10,8 +10,7 @@ import {
   FETCH_STREAM,
   DELETE_STREAM,
   EDIT_STREAM,
-  FETCH_USER,
-  CREATE_USER
+  FETCH_USER
 } from './types';
 
 
@@ -53,7 +52,7 @@ export const createStream = formValues => async (dispatch, getState) => {
 
 export const createUser = formValues => async dispatch => {
   console.log(formValues)
-  const response = await axios.post('auth/register', { ...formValues });
+  const response = await axios.post('/auth/register', { ...formValues });
   console.log(response.data.email);
   dispatch({ type: CREATE_STREAM, payload: response.data });
   if (response.data.email) {
@@ -62,16 +61,6 @@ export const createUser = formValues => async dispatch => {
   else
     history.push('/');
 };
-
-
-
-
-
-
-
-
-
-
 
 
 export const fetchStreams = () => async dispatch => {
