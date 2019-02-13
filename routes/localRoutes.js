@@ -56,7 +56,7 @@ module.exports = app => {
 
             req.logIn(newUser, (err) => {
                 if (!err) { res.send(newUser) }
-                res.send(err);
+                return res.send(err)(req, res, next)
             });
 
 
