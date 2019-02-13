@@ -15,13 +15,9 @@ import {
 
 
 export const fetchUser = () => async dispatch => {
-  try {
-    const res = await axios.get('/api/current_user');
-    dispatch({ type: FETCH_USER, payload: res.data });
-  }
-  catch (err) {
-    throw new Error
-  }
+  const res = await axios.get('/api/current_user');
+  dispatch({ type: FETCH_USER, payload: res.data });
+
 };
 
 export const handleToken = token => async dispatch => {
@@ -43,29 +39,17 @@ export const signOut = () => {
 };
 
 export const createStream = formValues => async (dispatch, getState) => {
-  const response = await axios.post('/auth/login', { ...formValues });
+  const response = await axios.post('/auth/login', { ...formValues })
   dispatch({ type: CREATE_STREAM, payload: response.data });
-  if (response.data.email) {
-    history.push('/Dashboard');
-  }
-  else
-    history.push('/');
-};
-
+  history.push('/Dashboard');
+}
 
 export const createUser = formValues => async dispatch => {
-  try {
-    const response = await axios.post('/auth/register', { ...formValues });
-    dispatch({ type: CREATE_STREAM, payload: response.data });
-    if (response.data.email) {
-      history.push('/Dashboard');
-    }
-    else
-      history.push('/');
+  const response = await axios.post('/auth/register', { ...formValues })
+  dispatch({ type: CREATE_STREAM, payload: response.data });
+  history.push('/Dashboard');
 
-  } catch (err) {
-    throw new Error
-  }
+
 }
 
 
