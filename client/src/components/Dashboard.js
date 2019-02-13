@@ -13,9 +13,10 @@ class Dashboard extends React.Component {
 
     render() {
         return (
-
-            <h2> Welcome To Fit App  </h2>
-
+            <>
+                <h2> Welcome To Fit App  </h2>
+                <h2> You are Now Logged In </h2>
+            </>
         )
     }
 }
