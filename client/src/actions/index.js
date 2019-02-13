@@ -39,9 +39,7 @@ export const signOut = () => {
 };
 
 export const createStream = formValues => async (dispatch, getState) => {
-  console.log(formValues)
   const response = await axios.post('/auth/login', { ...formValues });
-  console.log(response.data.email);
   dispatch({ type: CREATE_STREAM, payload: response.data });
   if (response.data.email) {
     history.push('/Dashboard');
@@ -51,9 +49,7 @@ export const createStream = formValues => async (dispatch, getState) => {
 };
 
 export const createUser = formValues => async dispatch => {
-  console.log(formValues)
   const response = await axios.post('/auth/register', { ...formValues });
-  console.log(response.data.email);
   dispatch({ type: CREATE_STREAM, payload: response.data });
   if (response.data.email) {
     history.push('/Dashboard');
@@ -63,31 +59,34 @@ export const createUser = formValues => async dispatch => {
 };
 
 
-export const fetchStreams = () => async dispatch => {
-  const response = await streams.get('/streams');
 
-  dispatch({ type: FETCH_STREAMS, payload: response.data });
-};
 
-export const fetchStream = id => async dispatch => {
-  const response = await streams.get(`/streams/${id}`);
 
-  dispatch({ type: FETCH_STREAM, payload: response.data });
-};
+// export const fetchStreams = () => async dispatch => {
+//   const response = await streams.get('/streams');
 
-export const editStream = (id, formValues) => async dispatch => {
-  const response = await streams.patch(`/streams/${id}`, formValues);
+//   dispatch({ type: FETCH_STREAMS, payload: response.data });
+// };
 
-  dispatch({ type: EDIT_STREAM, payload: response.data });
-  history.push('/');
-};
+// export const fetchStream = id => async dispatch => {
+//   const response = await streams.get(`/streams/${id}`);
 
-export const deleteStream = id => async dispatch => {
-  await streams.delete(`/streams/${id}`);
+//   dispatch({ type: FETCH_STREAM, payload: response.data });
+// };
 
-  dispatch({ type: DELETE_STREAM, payload: id });
-  history.push('/');
-};
+// export const editStream = (id, formValues) => async dispatch => {
+//   const response = await streams.patch(`/streams/${id}`, formValues);
+
+//   dispatch({ type: EDIT_STREAM, payload: response.data });
+//   history.push('/');
+// };
+
+// export const deleteStream = id => async dispatch => {
+//   await streams.delete(`/streams/${id}`);
+
+//   dispatch({ type: DELETE_STREAM, payload: id });
+//   history.push('/');
+// };
 
 
 
