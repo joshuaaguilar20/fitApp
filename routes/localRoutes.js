@@ -7,9 +7,6 @@ const User = mongoose.model('users');
 const users = require('../models/User');
 
 module.exports = app => {
-
-
-
     app.post('/auth/login', (req, res, next) => {
         passport.authenticate('local', {
             successRedirect: '/Dashboard',
@@ -63,7 +60,7 @@ module.exports = app => {
         }
 
         else {
-            res.status(500).send("{erros: \"Passwords don't match\"}").end()
+            res.status(400).send("{erros: \"Passwords don't match\"}").end()
         }
     })
 }
