@@ -40,8 +40,12 @@ export const signOut = () => {
 
 export const createStream = formValues => async (dispatch, getState) => {
   const response = await axios.post('/auth/login', { ...formValues })
-  dispatch({ type: CREATE_STREAM, payload: response.data });
-  history.push('/Dashboard');
+  if (response.email) {
+    dispatch({ type: CREATE_STREAM, payload: response.data });
+    history.push('/Dashboard');
+  } else {
+    history.push('/')
+  }
 }
 
 export const createUser = formValues => async dispatch => {
