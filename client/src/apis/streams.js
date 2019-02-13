@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'http://localhost:5000'
+  baseURL: 'https://thawing-ridge-14441.herokuapp.com'
 });
