@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "3.0.0",
     "body-parser": "^1.18.3",
     "concurrently": "^3.6.1",
     "connect-flash": "^0.1.1",
