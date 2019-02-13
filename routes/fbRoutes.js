@@ -13,14 +13,14 @@ module.exports = app => {
         '/auth/facebook/callback',
         passport.authenticate('facebook'),
         (req, res) => {
-            res.redirect('/');
+            res.redirect('/Dashboard');
         }
     );
 
-    app.get('/facebook/logout', (req, res) => {
-        req.logout();
-        res.redirect('/');
-    });
+    // app.get('/facebook/logout', (req, res) => {
+    //     req.logout();
+    //     res.redirect('/logout');
+    // });
 
     app.get('/facebook/current_user', (req, res) => {
         res.send(req.user);

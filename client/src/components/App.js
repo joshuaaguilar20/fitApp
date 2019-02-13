@@ -3,19 +3,19 @@ import { Router, Route, Switch } from 'react-router-dom';
 import StreamCreate from './streams/StreamCreate';
 import StreamEdit from './streams/StreamEdit';
 import StreamDelete from './streams/StreamDelete';
-import StreamList from './streams/StreamList';
-import StreamShow from './streams/StreamShow';
+import RenderRegister from '../components/streams/RenderRegister';
 import Header from './Header';
 import history from '../history';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
-import Login from './Login'
+import Dashboard from './Dashboard';
+
 
 class App extends React.Component {
   componentDidMount() {
-    console.log(this.props.fetchUser())
     this.props.fetchUser()
   }
+
   render() {
     return (
       <div className="ui container">
@@ -23,11 +23,12 @@ class App extends React.Component {
           <div>
             <Header />
             <Switch>
-              <Route path="/" exact component={Login} />
-              <Route path="/streams/new" exact component={StreamCreate} />
+              <Route path="/null" exact component={null} />
+              <Route path="/" exact component={StreamCreate} />
               <Route path="/streams/edit/:id" exact component={StreamEdit} />
               <Route path="/streams/delete/:id" exact component={StreamDelete} />
-              <Route path="/streams/:id" exact component={StreamShow} />
+              <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/register" exact component={RenderRegister} />
             </Switch>
           </div>
         </Router>

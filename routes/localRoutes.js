@@ -9,29 +9,27 @@ const users = require('../models/User');
 module.exports = app => {
 
 
+
     app.post('/auth/login', (req, res, next) => {
         passport.authenticate('local', {
-            successRedirect: '/worked',
-            failureRedirect: '/Failed',
+            successRedirect: '/Dashboard',
+            failureRedirect: '/',
             failureFlash: true,
             passReqToCallback: true
 
         },
-            function (err, user, info) {
+            (err, user) => {
                 if (err) { return next(err); }
                 if (!user) { return res.redirect('/'); }
 
                 // req / res held in closure
-                req.logIn(user, function (err) {
+                req.logIn(user, err => {
                     if (err) { return next(err); }
                     return res.send(user);
                 });
             })(req, res, next)
 
     });
-
-
-
 
 
     app.post('/auth/register', async (req, res) => {
@@ -48,10 +46,19 @@ module.exports = app => {
             var newUser = await new User({
                 email: req.body.email,
                 password: hash,
-                birthday: req.body.birthday
+                birthday: req.body.DOB,
+                goal: req.body.goal,
+                provider: 'Local Sign Up'
+
             }).save()
 
-            res.send(newUser)
+
+
+            req.logIn(newUser, (err) => {
+                if (!err) { res.send(newUser) }
+                res.send(err);
+            });
+
 
         }
 

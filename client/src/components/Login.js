@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Input, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 const LoginForm = () => (
     <div className='login-form'>
@@ -17,28 +17,28 @@ const LoginForm = () => (
     `}</style>
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' color='teal' textAlign='center'>
-                    Welcome to Fit App Login to get Started
+                <Header as='h2' color='black' textAlign='center'>
+                    Login to get Started
         </Header>
-                <Form size='large' action="auth/login" method="post">
-                    <Segment stacked>
-                        <Form.Input fluid icon='user' name="password" iconPosition='left' placeholder='E-mail address' />
-                        <Form.Input
-                            fluid
-                            icon='lock'
-                            iconPosition='left'
-                            placeholder='Password'
-                            type='password'
-                            name="password"
-                        />
 
-                        <Button color='teal' fluid size='large' type="submit">
-                            Login
+                <Segment stacked>
+                    <Input fluid icon='user' name="password" iconPosition='left' placeholder='E-mail address' />
+                    <Input
+                        fluid
+                        icon='lock'
+                        iconPosition='left'
+                        placeholder='Password'
+                        type='password'
+                        name="password"
+                    />
+
+                    <Button color='teal' fluid size='large' type="submit">
+                        Login
             </Button>
-                    </Segment>
-                </Form>
+                </Segment>
+
                 <Message>
-                    New to us? <a href='#'>Sign Up</a>
+                    New to us? <a href='/auth/register'>Sign Up</a>
                 </Message>
                 <Message>
                     <div class="ui facebook button">

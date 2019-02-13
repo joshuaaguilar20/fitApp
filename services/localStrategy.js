@@ -36,7 +36,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
             if (isMatch) {
                 return done(null, user);
             }
-            return done(null, false, 'Invalid credentials.');
+            return done(null, false, 'Invalid Password');
         });
     });
 }));

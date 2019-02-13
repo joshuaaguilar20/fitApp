@@ -19,29 +19,34 @@ passport.deserializeUser((id, done) => {
 });
 
 
-
-
-
 passport.use(
     new FacebookStrategy(
         {
             clientID: keys.FACEBOOK_APP_ID,
             clientSecret: keys.FACEBOOK_APP_SECRET,
-            callbackURL: '/auth/facebook/callback'
+            callbackURL: '/auth/facebook/callback',
+            profileFields: ['id', 'name', 'gender', 'displayName', 'photos', 'profileUrl', 'email']
         },
 
         async (accessToken, refreshToken, profile, done) => {
             try {
-                console.log('profile', profile);
-                console.log('accessToken', accessToken);
-                console.log('refreshToken', refreshToken);
 
-                const existingUser = await User.findOne({ email: profile.id });
+                // console.log('profile', profile);
+                // console.log(profile._json);
+
+                const existingUser = await User.findOne({ email: profile.emails[0].value });
                 if (existingUser) {
                     return done(null, existingUser);
                 }
 
-                const user = await new User({ email: profile.id }).save();
+                const user = await new User({
+                    email: profile.emails[0].value,
+                    provider: "facebook",
+                    lastName: profile._json.last_name,
+                    firstName: profile._json.first_name,
+                    picture: "https://graph.facebook.com/" + profile.username + "/picture" + "?width=200&height=200" + "&access_token=" + accessToken
+                }).save();
+
                 done(null, user);
 
 
@@ -51,3 +56,12 @@ passport.use(
         }
     )
 );
+
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+})

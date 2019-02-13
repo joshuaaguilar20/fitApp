@@ -10,14 +10,14 @@ import {
   FETCH_STREAM,
   DELETE_STREAM,
   EDIT_STREAM,
-  FETCH_USER
+  FETCH_USER,
+  CREATE_USER
 } from './types';
 
 
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
-
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
@@ -40,13 +40,39 @@ export const signOut = () => {
 };
 
 export const createStream = formValues => async (dispatch, getState) => {
-  const { userId } = getState().auth;
   console.log(formValues)
-  const response = await streams.post('/auth/login', { ...formValues });
-
+  const response = await axios.post('/auth/login', { ...formValues });
+  console.log(response.data.email);
   dispatch({ type: CREATE_STREAM, payload: response.data });
-  history.push('/');
+  if (response.data.email) {
+    history.push('/Dashboard');
+  }
+  else
+    history.push('/');
 };
+
+export const createUser = formValues => async dispatch => {
+  console.log(formValues)
+  const response = await axios.post('auth/register', { ...formValues });
+  console.log(response.data.email);
+  dispatch({ type: CREATE_STREAM, payload: response.data });
+  if (response.data.email) {
+    history.push('/Dashboard');
+  }
+  else
+    history.push('/');
+};
+
+
+
+
+
+
+
+
+
+
+
 
 export const fetchStreams = () => async dispatch => {
   const response = await streams.get('/streams');

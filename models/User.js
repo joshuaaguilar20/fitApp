@@ -10,7 +10,15 @@ const { Schema } = mongoose;
 const UserSchema = new Schema({
   email: String,
   password: String,
-  birthday: String
+  birthday: String,
+  gender: String,
+  firstName: String,
+  lastName: String,
+  id: String,
+  signUpDate: String,
+  picture: String,
+  provider: String,
+  goal: String
 });
 
 // The user's password is never saved in plain text.  Prior to saving the

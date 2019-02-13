@@ -6,22 +6,17 @@ import { Link } from 'react-router-dom';
 
 class GoogleAuth extends React.Component {
 
-    componentDidMount = () => {
-
-    }
 
     render() {
         return (
 
 
             !this.props.auth ?
-                <div className='item'>
-                    <a href="/auth/google">
-                        Login
-               </a>
+                <div className='right item'>
+                    {null}
                 </div>
 
-                : <div className='item'>
+                : <div className='right item'>
                     <a href="/api/logout">Logout</a>}
                 </div>
 

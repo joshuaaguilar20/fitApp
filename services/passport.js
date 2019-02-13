@@ -24,19 +24,37 @@ passport.use(
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
+      try {
 
-      const existingUser = await User.findOne({ userName: profile.id });
+        console.log('profile', profile);
 
-      if (existingUser) {
-        return done(null, existingUser);
+        console.log('profile', profile.emails[0].value);
+
+        const existingUser = await User.findOne({ email: profile.emails[0].value });
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+
+        const user = await new User({
+          email: profile.emails[0].value,
+          provider: "google",
+          lastName: profile.name.familyName,
+          firstName: profile.name.givenName,
+          fullName: profile.displayName,
+          picture: profile.photos[0].value,
+          gender: profile.gender
+        }).save();
+
+        done(null, user);
+
+
+      } catch (error) {
+        done(error, false, error.message);
       }
-
-      const user = await new User({ userName: profile.id }).save();
-      done(null, user);
     }
   )
 );
+
 //Visual Flow*
 // passport.serializeUser(function(user, done) {
 //     done(null, user.id);
