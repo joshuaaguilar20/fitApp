@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import GoogleAuth from './GoogleAuth';
 
+
+
 const Header = () => {
   return (
     <div className="ui inverted menu">
       <Link to="/" className=" active item">
-        Fit App
+        App
       </Link>
       <GoogleAuth />
     </div>
@@ -14,4 +16,9 @@ const Header = () => {
   );
 };
 
+
+
+
 export default Header;
+
+

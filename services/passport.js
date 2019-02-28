@@ -9,11 +9,14 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
-    done(null, user);
+// The counterpart of 'serializeUser'.  Given only a user's ID, we must return
+// the user object.  This object is placed on 'req.user'.
+passport.deserializeUser((user, done) => {
+  User.findById(user.id, (err, user) => {
+    done(err, user);
   });
 });
+
 
 passport.use(
   new GoogleStrategy(
@@ -23,12 +26,8 @@ passport.use(
       callbackURL: '/auth/google/callback',
       proxy: true
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (profile, done) => {
       try {
-
-        console.log('profile', profile);
-
-        console.log('profile', profile.emails[0].value);
 
         const existingUser = await User.findOne({ email: profile.emails[0].value });
         if (existingUser) {
@@ -42,7 +41,8 @@ passport.use(
           firstName: profile.name.givenName,
           fullName: profile.displayName,
           picture: profile.photos[0].value,
-          gender: profile.gender
+          gender: profile.gender,
+          id: profile.id
         }).save();
 
         done(null, user);

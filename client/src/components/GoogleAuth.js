@@ -13,7 +13,7 @@ class GoogleAuth extends React.Component {
 
             !this.props.auth ?
                 <div className='right item'>
-                    {null}
+                    <a href="/">Login</a>
                 </div>
 
                 : <div className='right item'>
@@ -25,8 +25,8 @@ class GoogleAuth extends React.Component {
     }
 }
 
-function mapStateToProps({ auth }) {
-    return { auth };
+function mapStateToProps(state) {
+    return { auth: state.auth };
 }
 
 export default connect(mapStateToProps)(GoogleAuth);

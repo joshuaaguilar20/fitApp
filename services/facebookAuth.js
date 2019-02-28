@@ -7,16 +7,18 @@ const User = mongoose.model('users');
 
 
 
-
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-    User.findById(id).then(user => {
-        done(null, user);
+// The counterpart of 'serializeUser'.  Given only a user's ID, we must return
+// the user object.  This object is placed on 'req.user'.
+passport.deserializeUser((user, done) => {
+    User.findById(user.id, (err, user) => {
+        done(err, user);
     });
 });
+
 
 
 passport.use(
@@ -43,6 +45,7 @@ passport.use(
                 const user = await new User({
                     email: profile.emails[0].value,
                     provider: "facebook",
+                    id: profile.id,
                     lastName: profile._json.last_name,
                     firstName: profile._json.first_name,
                     picture: "https://graph.facebook.com/" + profile.username + "/picture" + "?width=200&height=200" + "&access_token=" + accessToken
@@ -52,17 +55,9 @@ passport.use(
 
 
             } catch (error) {
-                done(error, false, error.message);
+                done(error, null);
             }
         }
     )
 );
 
-
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-    done(null, user);
-})

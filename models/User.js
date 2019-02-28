@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
-
+var Schema = mongoose.Schema;
 
 
 
@@ -14,12 +13,11 @@ const UserSchema = new Schema({
   gender: String,
   firstName: String,
   lastName: String,
-  id: String,
-  signUpDate: String,
   picture: String,
   provider: String,
-  goal: String
-});
+  goal: String,
+  id: String
+})
 
 // The user's password is never saved in plain text.  Prior to saving the
 // user model, we 'salt' and 'hash' the users password.  This is a one way
@@ -45,7 +43,7 @@ const UserSchema = new Schema({
 // // that hashed password to the one stored in the DB.  Remember that hashing is
 // // a one way process - the passwords are never compared in plain text form.
 UserSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     cb(err, isMatch);
   });
 };
