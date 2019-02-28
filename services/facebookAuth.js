@@ -5,16 +5,14 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
-
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
+passport.serializeUser(function (user, done) {
+    done(null, user._id);
+    // if you use Model.id as your idAttribute maybe you'd want
+    // done(null, user.id);
 });
 
-// The counterpart of 'serializeUser'.  Given only a user's ID, we must return
-// the user object.  This object is placed on 'req.user'.
-passport.deserializeUser((user, done) => {
-    User.findById(user.id, (err, user) => {
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
         done(err, user);
     });
 });

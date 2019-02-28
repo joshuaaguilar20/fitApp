@@ -70,10 +70,7 @@ process.on('unhandledRejection', (reason, p) => {
 function handleExit() {
   mongoose.connection.close()
   console.log('DB Connection Closed')
-  req.session.destroy(function (err) {
-    req.user = null;
-    //Inside a callback… bulletproof!
-  });
+
   process.exit(0)
 };
 // exit process
