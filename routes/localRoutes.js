@@ -15,7 +15,7 @@ module.exports = app => {
             passReqToCallback: true
 
         },
-            (err, user) => {
+            (function (err, user) {
                 if (err) { return next(err); }
                 if (!user) { return res.redirect('/'); }
 
@@ -24,7 +24,7 @@ module.exports = app => {
                     if (err) { return next(err); }
                     return res.send(user);
                 });
-            })(req, res, next)
+            }))(req, res, next)
 
     });
 
@@ -76,8 +76,10 @@ module.exports = app => {
     });
 
     app.get('/api/current_user', (req, res) => {
-        res.send(req.user);
-
+        if (req.user) {
+            res.send(req.user);
+        } else
+            res.send(false);
     });
 
 }
