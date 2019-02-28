@@ -30,44 +30,42 @@ module.exports = app => {
 
 
     app.post('/auth/register', async function (req, res) {
-        try {
-
-            var password = req.body.password;
-            var password2 = req.body.password2;
-            console.log(req.body);
-            const existingUser = await User.findOne({ email: req.body.email });
-            if (existingUser) {
-                res.send("{erros: \"User Exist\"}").end()
-            }
-
-            if (password == password2) {
-                var hash = await bcrypt.hash(req.body.password, 10)
-                var newUser = await new User({
-                    email: req.body.email,
-                    password: hash,
-                    birthday: req.body.DOB,
-                    goal: req.body.goal,
-                    provider: 'Local Sign Up'
-
-                }).save()
-
-
-
-                req.logIn(newUser, (err) => {
-                    if (!err) { res.send(newUser) }
-                    res.send(err)(req, res, next)
-
-                });
-
-
-            }
-
-            else {
-                res.status(400).send("{erros: \"Passwords don't match\"}").end()
-            }
-        } catch (err) {
-            throw Error(`Error:${err}`)
+        let password = req.body.password;
+        let password2 = req.body.password2;
+        const existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            res.send("{erros: \"User Exist\"}").end()
         }
+
+        if (password == password2) {
+            let hash = await bcrypt.hash(req.body.password, 10)
+            let newUser = await new User({
+                email: req.body.email,
+                password: hash,
+                birthday: req.body.DOB,
+                goal: req.body.goal,
+                provider: 'Local Sign Up'
+
+            }).save()
+
+
+
+            req.logIn(newUser, (err) => {
+                if (!err) { res.send(newUser) }
+                else {
+                    res.send(err)(req, res, next)
+                }
+
+
+            });
+
+
+        }
+
+        else {
+            res.status(400).send("{erros: \"Passwords don't match\"}").end()
+        }
+
     })
 
     app.get('/api/logout', (req, res) => {
