@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('users');
 const users = require('../models/User');
 
+
 module.exports = app => {
     app.post('/auth/login', (req, res, next) => {
         passport.authenticate('local', {
@@ -19,7 +20,7 @@ module.exports = app => {
                 if (err) { return next(err); }
                 if (!user) { return res.redirect('/'); }
 
-                // req / res held in closure
+                // req / res held in closure  which you know about js* 
                 req.logIn(user, err => {
                     if (err) { return next(err); }
                     return res.send(user);
@@ -34,7 +35,8 @@ module.exports = app => {
         let password2 = req.body.password2;
         const existingUser = await User.findOne({ email: req.body.email });
         if (existingUser) {
-            res.send("{erros: \"User Exist\"}").end()
+            console.log('sending response to user already exits');
+            return res.send("{erros: \"User Exist\"}").end()
         }
 
         if (password == password2) {
@@ -47,23 +49,16 @@ module.exports = app => {
                 provider: 'Local Sign Up'
 
             }).save()
-
-
-
             req.logIn(newUser, (err) => {
                 if (!err) { res.send(newUser) }
                 else {
                     res.send(err)(req, res, next)
                 }
-
-
             });
-
-
         }
-
         else {
-            res.status(400).send("{erros: \"Passwords don't match\"}").end()
+            console.log('passwords do not match');
+            return res.send("{erros: \"Passwords don't match\"}").end()
         }
 
     })

@@ -4,12 +4,8 @@ import { connect } from 'react-redux';
 
 
 class GoogleAuth extends React.Component {
-
-
     render() {
         return (
-
-
             !this.props.auth ?
                 <div className='right item'>
                     <a href="/">Login</a>
@@ -18,8 +14,6 @@ class GoogleAuth extends React.Component {
                 : <div className='right item'>
                     <a href="/api/logout">Logout</a>}
                 </div>
-
-
         )
     }
 }
