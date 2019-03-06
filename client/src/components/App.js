@@ -7,6 +7,8 @@ import history from '../history';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
+import { PrivateRoute } from './PrivateRoute';
+
 
 
 class App extends React.Component {
@@ -23,7 +25,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/null" exact component={null} />
               <Route path="/" exact component={StreamCreate} />
-              <Route path="/Dashboard" exact component={Dashboard} />
+              <PrivateRoute isAuthenticated={this.props.auth} path="/Dashboard" exact component={Dashboard} />
               <Route path="/register" exact component={RenderRegister} />
             </Switch>
           </div>
@@ -32,4 +34,8 @@ class App extends React.Component {
     );
   };
 }
-export default connect(null, actions)(App)
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+;
+export default connect(mapStateToProps, actions)(App)

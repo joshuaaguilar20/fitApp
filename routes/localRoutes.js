@@ -16,9 +16,13 @@ module.exports = app => {
             passReqToCallback: true
 
         },
-            (function (err, user) {
+            (function (err, user, info) {
                 if (err) { return next(err); }
-                if (!user) { return res.redirect('/'); }
+                if (!user) {
+                    res.status(401);
+                    res.end(info.message);
+                    return;
+                }
 
                 // req / res held in closure  which you know about js* 
                 req.logIn(user, err => {
