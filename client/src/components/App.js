@@ -8,6 +8,8 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
 import { PrivateRoute } from './PrivateRoute';
+import BlogNew from './blogs/BlogNew';
+import BlogShow from './blogs/BlogShow';
 
 
 
@@ -23,7 +25,8 @@ class App extends React.Component {
           <div>
             <Header />
             <Switch>
-              <Route path="/null" exact component={null} />
+              <Route path="/blogs/new" component={BlogNew} />
+              <Route exact path="/blogs/:_id" component={BlogShow} />
               <Route path="/" exact component={StreamCreate} />
               <PrivateRoute isAuthenticated={this.props.auth} path="/Dashboard" exact component={Dashboard} />
               <Route path="/register" exact component={RenderRegister} />
