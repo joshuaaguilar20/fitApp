@@ -16,6 +16,7 @@ import BlogShow from './blogs/BlogShow';
 class App extends React.Component {
   componentDidMount() {
     this.props.fetchUser()
+    console.log(this.props.auth);
   }
 
   render() {

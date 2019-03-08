@@ -5,6 +5,9 @@ const requireLogin = require('../middlewares/requireLogin');
 const Blog = mongoose.model('Blog');
 const util = require('util');
 //makes redis return promise instead of callback function
+const redis = require('redis');
+const redisUrl = 'redis://127.0.0.1:6379';
+const client = redis.createClient(redis)
 client.get = util.promisify(client.get);
 
 
@@ -22,9 +25,6 @@ module.exports = app => {
 
     app.get('/api/blogs', requireLogin, async (req, res) => {
         //Caching Data for Faster Lookup times* 
-        const redis = require('redis');
-        const redisUrl = 'redis://127.0.0.1:6379';
-        const client = redis.createClient(redis)
         //using utils to return promises
         const cachedBlogs = await client.get(req.user.id)
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('./models/User')
+require('./models/User');
+require('./models/Blog');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 var path = require('path');
@@ -42,7 +43,9 @@ app.use(passport.session());
 
 require('./routes/localRoutes')(app);
 require('./routes/authRoutes')(app);
+require('./routes/blogRoutes')(app);
 require('./routes/fbRoutes')(app);
+
 
 
 
