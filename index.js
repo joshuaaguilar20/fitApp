@@ -8,9 +8,9 @@ var path = require('path');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 var flash = require('connect-flash');
-require('./services/passport')
-require('./services/facebookAuth')
-require('./services/localStrategy')
+require('./services/passport');
+require('./services/facebookAuth');
+require('./services/localStrategy');
 
 
 
