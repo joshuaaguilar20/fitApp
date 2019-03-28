@@ -40,7 +40,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+/* Routes */
 require('./routes/localRoutes')(app);
 require('./routes/authRoutes')(app);
 require('./routes/blogRoutes')(app);
