@@ -5,7 +5,10 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import App from './components/App';
 import reducers from './reducers';
-import './app.css'
+import "././components/assets/scss/black-dashboard-react.scss";
+import "././components/assets/demo/demo.css";
+import "././components/assets/css/nucleo-icons.css";
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
